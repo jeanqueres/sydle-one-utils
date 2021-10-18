@@ -1,3 +1,12 @@
+module.exports = {
+
+    contains:contains,
+    removeDuplicates:removeDuplicates,
+    isEmptyOrSpacesOrUndefined:isEmptyOrSpacesOrUndefined,
+    createMap:createMap
+};
+
+
 var contains = function (array, value) {
     var index = -1;
     var length = array.length;
