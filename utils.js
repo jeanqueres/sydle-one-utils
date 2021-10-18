@@ -1,4 +1,3 @@
-//Primeiro Código
 var contains = function (array, value) {
     var index = -1;
     var length = array.length;
@@ -16,3 +15,15 @@ var removeDuplicates = function(array) {
         return exist.hasOwnProperty(item) ? false : (exist[item] = true);
     });
 }
+
+var isEmptyOrSpacesOrUndefined = function(str){
+    return str === null || str.match(/^ *$/) !== null ||str === undefined ;
+}
+
+var createMap = function(array, key) {
+    let map = {};
+    array.forEach(item => {
+        map[item[key]] = item;
+    });
+    return map;
+};
