@@ -1,4 +1,4 @@
-
+//Primeiro Código
 var contains = function (array, value) {
     var index = -1;
     var length = array.length;
