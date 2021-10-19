@@ -38,27 +38,38 @@ var createMap = function(array, key) {
     return map;
 };
 
-function howManyTimeTheValueAppears(arr){
+function howManyTimeTheValueAppears(arr) {
 
     let result = [];
 
-    let res = result.reduce((arr, curr) =>
-    {
-        arr[curr] = arr[curr] ? ++arr[curr] : 1;
-        return arr;
+    let res = arr.reduce((data, curr) => {
+        data[curr] = data[curr] ? ++data[curr] : 1;
+        return data;
     }, {});
 
-    Object.entries(res).forEach(([val, numTimes]) =>
-    {
+
+
+    Object.entries = function(obj) {
+        var ownProps = Object.keys(obj),
+            i = ownProps.length,
+            resArray = new Array(i); // preallocate the Array
+        while (i--)
+            resArray[i] = [ownProps[i], obj[ownProps[i]]];
+
+        return resArray;
+    };
+
+
+
+    Object.entries(res).forEach(([val, numTimes]) => {
         if (numTimes > 1)
-        result.push("O valor " + val + " aparece "+ numTimes +" vezes");
+            result.push("O valor " + val + " aparece " + numTimes + " vezes");
     });
 
-    if(!result.length){
+    if (!result.length) {
         result.push("Nenhum resultado encontrado ou todos os elementos aparecem apenas 1 vez.");
     }
 
-    throw _utils.stringifyAsJson(result) 
-}
 
-  
+   return result;
+}
