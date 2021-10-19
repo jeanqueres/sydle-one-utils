@@ -54,7 +54,7 @@ function howManyTimeTheValueAppears(arr){
     });
 
     if(!result.length){
-        result.push("Nenhum resultado encontrado!");
+        result.push("Nenhum resultado encontrado ou todos os elementos aparecem apenas 1 vez.!");
     }
 
     throw _utils.stringifyAsJson(result) 
