@@ -3,7 +3,8 @@ module.exports = {
     contains:contains,
     removeDuplicates:removeDuplicates,
     isEmptyOrSpacesOrUndefined:isEmptyOrSpacesOrUndefined,
-    createMap:createMap
+    createMap:createMap,
+    howManyTimeTheValueAppears:howManyTimeTheValueAppears
 };
 
 
@@ -54,7 +55,7 @@ function howManyTimeTheValueAppears(arr){
     });
 
     if(!result.length){
-        result.push("Nenhum resultado encontrado ou todos os elementos aparecem apenas 1 vez.!");
+        result.push("Nenhum resultado encontrado ou todos os elementos aparecem apenas 1 vez.");
     }
 
     throw _utils.stringifyAsJson(result) 
