@@ -4,7 +4,8 @@ module.exports = {
     removeDuplicates:removeDuplicates,
     isEmptyOrSpacesOrUndefined:isEmptyOrSpacesOrUndefined,
     createMap:createMap,
-    howManyTimeTheValueAppears:howManyTimeTheValueAppears
+    howManyTimesTheValueAppears:howManyTimesTheValueAppears,
+    hasChanged:hasChanged
 };
 
 
@@ -38,7 +39,7 @@ var createMap = function(array, key) {
     return map;
 };
 
-function howManyTimeTheValueAppears(arr) {
+var howManyTimesTheValueAppears = function (arr) {
 
     let result = [];
 
@@ -46,8 +47,6 @@ function howManyTimeTheValueAppears(arr) {
         data[curr] = data[curr] ? ++data[curr] : 1;
         return data;
     }, {});
-
-
 
     Object.entries = function(obj) {
         var ownProps = Object.keys(obj),
@@ -58,8 +57,6 @@ function howManyTimeTheValueAppears(arr) {
 
         return resArray;
     };
-
-
 
     Object.entries(res).forEach(([val, numTimes]) => {
         if (numTimes > 1)
@@ -72,4 +69,64 @@ function howManyTimeTheValueAppears(arr) {
 
 
    return result;
+}
+
+
+var hasChanged = function(object, oldObject, key, type){
+    
+    const moment = require("/_internal/moment"); moment.locale('pt-BR');
+    
+    if(!object){return;}
+    
+    if((object === undefined  || object=== null )  || (key === undefined  || key === null )  || oldObject === undefined){ 
+
+        throw "Object e object["+ key +"] são obrigatórios. Object:" + _utils.stringifyAsJson(object) +"/Key: " + key + "oldObject = " +    _utils.stringifyAsJson(oldObject) ;
+    }
+    
+    if(!type){throw "Tipo do campo não encontrado.Type: " + type; }
+    
+     if((oldObject && oldObject[key])  && object[key]  &&typeof(object[key]) !== typeof(oldObject[key])){
+        throw "Object["+key+"] = " + object[key] + " e oldObject["+key+"]= "+ oldObject[key] +" são de tipos diferentes";
+    }
+     
+    let isChanged = false;
+    
+     
+    
+    if(object[key] && oldObject === null)
+    {
+        return isChanged = true;
+    }
+  
+     switch (type) {
+                case "number":
+                     isChanged = Number(object[key]) !==  Number(oldObject[key]);
+                    break;
+                case "string":
+                     isChanged = String(object[key]) !==  String(oldObject[key]);
+                    break;
+                case "boolean":
+                    isChanged = object[key] !==  oldObject[key];
+                    break;
+                case "date":
+                   isChanged = moment.utc(object[key]).format('DD/MM/YYYY') !==  moment.utc(oldObject[key]).format('DD/MM/YYYY');
+                    break;
+                case "object":
+                     isChanged =   oldObject && object[key] &&
+                                    (
+                                        !oldObject[key] ||
+                                        oldObject[key]._id !== object[key]._id
+                                    )
+                    break;
+                case "objectAsString":
+                    isChanged =   _utils.stringifyAsJson(object[key]) !== _utils.stringifyAsJson(oldObject[key]);
+                    
+                    break;
+                default:
+                    break;
+            }
+    
+    return isChanged;
+    
+    
 }
