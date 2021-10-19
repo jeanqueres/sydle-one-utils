@@ -36,3 +36,28 @@ var createMap = function(array, key) {
     });
     return map;
 };
+
+function howManyTimeTheValueAppears(arr){
+
+    let result = [];
+
+    let res = result.reduce((arr, curr) =>
+    {
+        arr[curr] = arr[curr] ? ++arr[curr] : 1;
+        return arr;
+    }, {});
+
+    Object.entries(res).forEach(([val, numTimes]) =>
+    {
+        if (numTimes > 1)
+        result.push("O valor " + val + " aparece "+ numTimes +" vezes");
+    });
+
+    if(!result.length){
+        result.push("Nenhum resultado encontrado!");
+    }
+
+    throw _utils.stringifyAsJson(result) 
+}
+
+  
