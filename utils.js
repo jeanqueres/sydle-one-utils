@@ -74,8 +74,6 @@ var howManyTimesTheValueAppears = function (arr) {
 
 var hasChanged = function(object, oldObject, key, type){
     
-    const moment = require("/_internal/moment"); moment.locale('pt-BR');
-    
     if(!object){return;}
     
     if((object === undefined  || object=== null )  || (key === undefined  || key === null )  || oldObject === undefined){ 
@@ -90,9 +88,7 @@ var hasChanged = function(object, oldObject, key, type){
     }
      
     let isChanged = false;
-    
      
-    
     if(object[key] && oldObject === null)
     {
         return isChanged = true;
@@ -107,9 +103,6 @@ var hasChanged = function(object, oldObject, key, type){
                     break;
                 case "boolean":
                     isChanged = object[key] !==  oldObject[key];
-                    break;
-                case "date":
-                   isChanged = moment.utc(object[key]).format('DD/MM/YYYY') !==  moment.utc(oldObject[key]).format('DD/MM/YYYY');
                     break;
                 case "object":
                      isChanged =   oldObject && object[key] &&
