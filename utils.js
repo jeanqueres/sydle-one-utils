@@ -5,7 +5,8 @@ module.exports = {
     isEmptyOrSpacesOrUndefined:isEmptyOrSpacesOrUndefined,
     createMap:createMap,
     howManyTimesTheValueAppears:howManyTimesTheValueAppears,
-    hasChanged:hasChanged
+    hasChanged:hasChanged,
+    monthDays: monthDays
 };
 
 
