@@ -129,3 +129,51 @@ function monthDays(month, year) {
     var data = new Date(year, month, 0);
     return data.getDate();
 }
+
+var compareObjs = function (obj1, obj2) {
+    let keys = Object.keys(obj1);
+    try {
+        return keys.every(key => {
+            if (obj1[key] == null && obj2[key] == null) {
+                return true;
+            } else if ((obj1[key] != null && obj2[key] == null) || (obj1[key] == null && obj2[key] != null)) {
+                // throw key + " - null" + obj2[key] + ' * *' + _utils.stringifyAsJson(obj1[key]);
+                return false;
+            } else if (typeof obj1[key].getMonth === 'function' || typeof obj2[key].getMonth === 'function') {
+                // if (!this.compareDates(obj1[key], obj2[key])) throw key + " - date";
+                return this.compareDates(obj1[key], obj2[key]);
+            } else if (typeof obj1[key] === 'string' || typeof obj1[key] === 'number' || typeof obj1[key] === 'boolean') {
+                // if (!(obj1[key] == obj2[key])) throw key + " - primitivo - " + obj1[key] + " - " + obj2[key];
+                return obj1[key] == obj2[key];
+            } else if (Array.isArray(obj1[key]) && Array.isArray(obj2[key])) {
+                // if (!this.compareArrays(obj1[key], obj2[key])) throw key + " - Array";
+                return this.compareArrays(obj1[key], obj2[key]);
+            } else if (obj1[key]._id && obj2[key]._id && obj1[key]._id === obj2[key]._id) {
+                return true;
+            }
+            // throw key + " - nenhuma condição";
+            return false;
+        });
+    } catch (err) {
+        // throw err;
+        return false;
+    }
+};
+
+var compareArrays = function(array1, array2) {
+    return array1.every(item1 => {
+        return array2.some(item2 => {
+            return this.compareObjs(item1, item2);
+        });
+    });
+};
+
+var compareDates = function(date1, date2) {
+    if (!date1 || !date2) {
+        return false;
+    }
+    date1 = typeof date1.getMonth === 'function' ? date1 : new Date(date1);
+    date2 = typeof date2.getMonth === 'function' ? date2 : new Date(date2);
+    
+    return date1.getTime() === date2.getTime();
+};
