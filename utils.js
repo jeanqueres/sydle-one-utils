@@ -9,7 +9,8 @@ module.exports = {
     monthDays: monthDays,
     compareObjs : compareObjs,
     compareArrays : compareArrays,
-    compareDates : compareDates
+    compareDates : compareDates,
+    createMapKeyValue:createMapKeyValue
 };
 
 
@@ -180,3 +181,21 @@ function compareDates(date1, date2) {
     
     return date1.getTime() === date2.getTime();
 };
+
+function createMapKeyValue(arr, key, name){
+    
+         return  (arr || []).reduce((keyValue, obj) => {
+                
+                if(name === null || name === undefined){
+                    keyValue[obj[key]] = obj;
+                    return keyValue;
+                }else{
+                    let stringName = String(name);
+                    keyValue[stringName + obj[key]] = obj;
+                    return keyValue;
+                }
+                
+    
+            },{});
+        
+    }
