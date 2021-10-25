@@ -6,11 +6,14 @@ module.exports = {
     createMap:createMap,
     howManyTimesTheValueAppears:howManyTimesTheValueAppears,
     hasChanged:hasChanged,
-    monthDays: monthDays
+    monthDays: monthDays,
+    compareObjs : compareObjs,
+    compareArrays : compareArrays,
+    compareDates : compareDates
 };
 
 
-var contains = function (array, value) {
+function contains(array, value) {
     var index = -1;
     var length = array.length;
     while (++index < length) {
@@ -21,18 +24,18 @@ var contains = function (array, value) {
     return false;
 };
 
-var removeDuplicates = function(array) {
+function removeDuplicates(array) {
     var exist = {};
     return array.filter(function(item) {
         return exist.hasOwnProperty(item) ? false : (exist[item] = true);
     });
 }
 
-var isEmptyOrSpacesOrUndefined = function(str){
+function isEmptyOrSpacesOrUndefined(str){
     return str === null || str.match(/^ *$/) !== null ||str === undefined ;
 }
 
-var createMap = function(array, key) {
+function createMap(array, key) {
     let map = {};
     array.forEach(item => {
         map[item[key]] = item;
@@ -40,7 +43,7 @@ var createMap = function(array, key) {
     return map;
 };
 
-var howManyTimesTheValueAppears = function (arr) {
+function howManyTimesTheValueAppears(arr) {
 
     let result = [];
 
@@ -73,7 +76,7 @@ var howManyTimesTheValueAppears = function (arr) {
 }
 
 
-var hasChanged = function(object, oldObject, key, type){
+function hasChanged(object, oldObject, key, type){
     
     if(!object){return;}
     
@@ -130,7 +133,7 @@ function monthDays(month, year) {
     return data.getDate();
 }
 
-var compareObjs = function (obj1, obj2) {
+function compareObjs(obj1, obj2) {
     let keys = Object.keys(obj1);
     try {
         return keys.every(key => {
@@ -160,7 +163,7 @@ var compareObjs = function (obj1, obj2) {
     }
 };
 
-var compareArrays = function(array1, array2) {
+function compareArrays(array1, array2) {
     return array1.every(item1 => {
         return array2.some(item2 => {
             return this.compareObjs(item1, item2);
@@ -168,7 +171,7 @@ var compareArrays = function(array1, array2) {
     });
 };
 
-var compareDates = function(date1, date2) {
+function compareDates(date1, date2) {
     if (!date1 || !date2) {
         return false;
     }
