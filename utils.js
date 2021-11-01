@@ -10,7 +10,8 @@ module.exports = {
     compareObjs: compareObjs,
     compareArrays: compareArrays,
     compareDates: compareDates,
-    createMapKeyValue: createMapKeyValue
+    createMapKeyValue: createMapKeyValue,
+    camelCase: camelCase
 };
 
 
@@ -199,3 +200,12 @@ function compareDates(date1, date2) {
     return date1.getTime() === date2.getTime();
 };
 
+
+function camelCase(str) {
+    var c = str.normalize('NFD').replace(/[\u0300-\u036f]/g, "").replace(/\W+(.?)/g, function(match, chr) {
+        return chr.toUpperCase();
+    });
+    return c.replace(/\w/, function(char) {
+        return char.toLowerCase()
+    }).trim();
+}
