@@ -11,7 +11,8 @@ module.exports = {
     compareArrays: compareArrays,
     compareDates: compareDates,
     createMapKeyValue: createMapKeyValue,
-    camelCase: camelCase
+    camelCase: camelCase,
+    fieldChanged: fieldChanged
 };
 
 
@@ -208,4 +209,24 @@ function camelCase(str) {
     return c.replace(/\w/, function(char) {
         return char.toLowerCase()
     }).trim();
+}
+
+function fieldChanged(fieldName, object, oldObject){
+    let selected = false;
+    let changed = false;
+    
+    let field = object[fieldName] ? object[fieldName] : oldObject[fieldName];
+    
+    if( field ) {
+        if(typeof field == "object"){
+            selected = object[fieldName] && !oldObject[fieldName] || !object[fieldName] && oldObject[fieldName];
+            changed = object[fieldName] && oldObject[fieldName] && object[fieldName]._id !== oldObject[fieldName]._id;
+        }
+        else if(typeof field == "string") {
+            selected = object[fieldName] && !oldObject[fieldName] || !object[fieldName] && oldObject[fieldName];
+            changed = object[fieldName] && oldObject[fieldName] && object[fieldName] !== oldObject[fieldName];
+        }
+    }
+    
+    return selected || changed;
 }
