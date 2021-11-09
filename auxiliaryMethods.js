@@ -226,6 +226,10 @@ function fieldChanged(fieldName, object, oldObject){
             selected = object[fieldName] && !oldObject[fieldName] || !object[fieldName] && oldObject[fieldName];
             changed = object[fieldName] && oldObject[fieldName] && object[fieldName] !== oldObject[fieldName];
         }
+        else if(typeof field == "number") {
+            selected = object[fieldName] !== null && oldObject[fieldName] === null || object[fieldName] === null && oldObject[fieldName] !== null;
+            changed = object[fieldName] && oldObject[fieldName] && object[fieldName] !== oldObject[fieldName];
+        }
     }
     
     return selected || changed;
